@@ -1,7 +1,7 @@
 import * as express from "express";
 import Model from "../model";
 
-export default abstract class IndexRoute
+export default abstract class AbstractRoute
 {
 	private router : express.Router;
 	private model : Model;

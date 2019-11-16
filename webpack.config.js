@@ -1,7 +1,7 @@
 const path = require("path");
-const webpack = require('webpack');
+const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const helper = require('./webpack.helper');
+const helper = require("./webpack.helper");
 const externals = require("webpack-node-externals");
 
 const outputDirectory = "lib";
@@ -11,7 +11,7 @@ const serverConfig = {
 	mode: "development",
 	devtool: "inline-source-map",
 	entry: {
-		"server": "./server/start.ts"
+		"server": "./server/main.ts"
 	},
 	module: {
 		rules: [
@@ -34,9 +34,9 @@ const serverConfig = {
 		}
 	},
 	output: {
-		path: path.resolve(__dirname, outputDirectory),
-		filename: "server.js",
-		library: "server",
+		path: path.resolve(".", outputDirectory),
+		filename: "main.js",
+		library: "main",
 		libraryTarget: "umd"
 	},
 	node: {
@@ -76,9 +76,9 @@ const clientConfig = {
 		extensions: [".tsx", ".ts", ".js"]
 	},
 	output: {
-		path: path.resolve(__dirname, outputDirectory, "public"),
+		path: path.resolve(".", outputDirectory, "public"),
 		filename: "[name].bundle.js",
-		chunkFilename: '[name].bundle.js'
+		chunkFilename: "[name].bundle.js"
 	},
 	plugins: [
 		new HTMLWebpackPlugin({
@@ -92,4 +92,11 @@ const clientConfig = {
 	}
 };
 
-module.exports = [ serverConfig, clientConfig ];
+let config = [ serverConfig, clientConfig ];
+config.getServerConfig = () => {
+	return serverConfig;
+};
+config.getClientConfig = () => {
+	return clientConfig;
+};
+module.exports = config;

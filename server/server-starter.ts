@@ -3,9 +3,7 @@ import * as redis from "redis";
 
 import Server from "./server";
 
-export { default as Model } from "./model";
-
-export class ServerStarter
+export default class ServerStarter
 {
 	protected static SOCKET : string = process.env.SOCKET || "/opt/common/ipc.socket";
 
@@ -87,4 +85,4 @@ export class ServerStarter
 	}
 }
 
-ServerStarter.start();
+//ServerStarter.start();

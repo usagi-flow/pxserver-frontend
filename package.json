@@ -4,7 +4,7 @@
 	"description": "pxserver",
 	"author": "etienne-k",
 	"license": "GPL-3.0-or-later",
-	"main": "lib/server",
+	"main": "lib/main",
 	"scripts": {
 		"start": "node .",
 		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon .\"",
@@ -12,7 +12,8 @@
 		"clean": "rm -rf lib"
 	},
 	"files": [
-		"lib/**/*"
+		"lib/**/*",
+		"webpack.config.js"
 	],
 	"dependencies": {
 		"@angular/animations": "~8.2.0",

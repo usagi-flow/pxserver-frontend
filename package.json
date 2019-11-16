@@ -8,14 +8,12 @@
 	"scripts": {
 		"ng": "ng",
 		"start": "node .",
-		"build": "yarn run build-server && yarn run build-client && yarn run copy-assets",
-		"watch": "concurrently -n \"ts,nd\" \"tsc --pretty -w\" \"nodemon .\"",
+		"watch": "concurrently -n \"server,client,node\" \"tsc --pretty -w\" \"webpack --watch\" \"nodemon .\"",
+		"build": "yarn run build-client && yarn run build-server && yarn run copy-assets",
 		"build-server": "tsc --pretty -p ./tsconfig.server.json",
-		"build-client": "ng build",
+		"build-client": "webpack",
 		"copy-assets": "ts-node -T --project ./tsconfig.server.json copy-assets.ts",
-		"test": "ng test",
-		"lint": "ng lint",
-		"e2e": "ng e2e"
+		"clean": "rm -rf run"
 	},
 	"files": [
 		"run/**/*"
@@ -31,9 +29,11 @@
 		"@angular/platform-browser-dynamic": "~8.2.0",
 		"@angular/router": "~8.2.0",
 		"@types/redis": "^2.8.13",
+		"core-js": "^3.4.1",
 		"express": "~4.17.1",
 		"redis": "^2.8.0",
-		"rxjs": "~6.4.0",
+		"reflect-metadata": "^0.1.13",
+		"rxjs": "~6.5.3",
 		"socket.io-client": "~2.2.0",
 		"tslib": "^1.10.0",
 		"zone.js": "~0.9.1"
@@ -47,11 +47,16 @@
 		"@types/node": "~8.9.4",
 		"@types/shelljs": "^0.8.5",
 		"@types/socket.io-client": "~1.4.32",
+		"angular-router-loader": "^0.8.5",
+		"angular2-template-loader": "^0.6.2",
 		"concurrently": "^5.0.0",
+		"html-webpack-plugin": "^3.2.0",
 		"nodemon": "^1.19.4",
 		"shelljs": "~0.8.3",
+		"ts-loader": "^6.2.1",
 		"ts-node": "~7.0.0",
-		"tslint": "~5.15.0",
-		"typescript": "~3.5.3"
+		"typescript": "~3.5.3",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10"
 	}
 }

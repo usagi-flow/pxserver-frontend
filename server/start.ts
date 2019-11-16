@@ -87,4 +87,4 @@ export class ServerStarter
 	}
 }
 
-//ServerStarter.start();
+ServerStarter.start();

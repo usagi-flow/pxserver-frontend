@@ -2,8 +2,8 @@
 	"compileOnSave": true,
 	"compilerOptions": {
 		"baseUrl": "./",
-		"sourceMap": false,
-		"declaration": true,
+		"sourceMap": true,
+		"declaration": false,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,
 		"module": "esnext",

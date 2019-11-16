@@ -8,7 +8,7 @@ module.exports = {
 	devtool: "inline-source-map",
 	entry: {
 		"polyfills": "./client/polyfills.ts",
-		//"vendor": "./client/vendor.ts",
+		"vendor": "./client/vendor.ts",
 		"app": "./client/main.ts"
 	},
 	module: {
@@ -32,19 +32,15 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, "run", "public"),
-		filename: "[name].js"
+		filename: "[name].bundle.js",
+		chunkFilename: '[name].bundle.js'
 	},
 	plugins: [
-		// Workaround for angular/angular#11580
-		new webpack.ContextReplacementPlugin(
-			// The (\\|\/) piece accounts for path separators in *nix and Windows
-			/angular(\\|\/)core(\\|\/)@angular/,
-			helper.root('./src'), // location of your src
-			{} // a map of your routes
-		),
-		/*new webpack.optimize.CommonsChunkPlugin({
-			name: ['app', 'vendor', 'polyfills']
-		}),*/
 		new HTMLWebpackPlugin({ template: "client/index.html" })
-	]
+	],
+	optimization: {
+		splitChunks: {
+			chunks: "all"
+		}
+	}
 };

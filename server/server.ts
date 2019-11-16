@@ -2,6 +2,7 @@
 
 import * as express from "express";
 import * as path from "path";
+import * as fs from "fs";
 
 import Model from "./model";
 import IndexRoute from "./routes/index-route";
@@ -32,14 +33,18 @@ export default class Server
 			console.log("Setting up routes");
 			this.express.use("/", new IndexRoute(this.model).getRouter());
 			this.express.use(express.static(path.join(__dirname, "public")));
-			this.express.use(this.fallbackHandler);
+			//-this.express.use(this.fallbackHandler);
 		}
 		else
 		{
 			console.log("Setting up routes");
 			this.express.use(express.static(path.join(__dirname, "public")));
-			this.express.use(this.fallbackHandler);
+			//-this.express.use(this.fallbackHandler);
 		}
+
+		console.log("Listing server directory: " + __dirname);
+		fs.readdirSync(__dirname).forEach(file => console.log(file));
+		console.log("Listing done");
 	}
 
 	private fallbackHandler(request : express.Request, response : express.Response, next : express.NextFunction) : void

@@ -2,8 +2,51 @@ const path = require("path");
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const helper = require('./webpack.helper');
+const externals = require("webpack-node-externals");
 
-module.exports = {
+const serverConfig = {
+	target: "node",
+	mode: "development",
+	devtool: "inline-source-map",
+	entry: {
+		"server": "./server/start.ts"
+	},
+	module: {
+		rules: [
+			{
+				test: /\.tsx?$/,
+				loaders: [
+					{
+						loader: "ts-loader",
+						options: { configFile: "tsconfig.server.json" }
+					}
+				],
+				exclude: /node_modules/
+			}
+		]
+	},
+	resolve: {
+		extensions: [".tsx", ".ts", ".js"],
+		alias: {
+			"hiredis": path.resolve(__dirname, "server", "helpers", "hiredis.js")
+		}
+	},
+	output: {
+		path: path.resolve(__dirname, "run"),
+		filename: "start.js",
+		library: "start",
+		libraryTarget: "umd"
+	},
+	node: {
+		// Do not let Webpack change these globals
+		__dirname: false,
+		__filename: false,
+	},
+	externals: [externals()]
+};
+
+const clientConfig = {
+	target: "web",
 	mode: "development",
 	devtool: "inline-source-map",
 	entry: {
@@ -36,7 +79,9 @@ module.exports = {
 		chunkFilename: '[name].bundle.js'
 	},
 	plugins: [
-		new HTMLWebpackPlugin({ template: "client/index.html" })
+		new HTMLWebpackPlugin({
+			template: path.resolve(__dirname, "client", "index.html")
+		})
 	],
 	optimization: {
 		splitChunks: {
@@ -44,3 +89,5 @@ module.exports = {
 		}
 	}
 };
+
+module.exports = [ serverConfig, clientConfig ];

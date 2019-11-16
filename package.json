@@ -4,7 +4,7 @@
 	"description": "pxserver",
 	"author": "etienne-k",
 	"license": "GPL-3.0-or-later",
-	"main": "run/start.js",
+	"main": "run/start",
 	"scripts": {
 		"ng": "ng",
 		"start": "node .",
@@ -17,6 +17,9 @@
 		"lint": "ng lint",
 		"e2e": "ng e2e"
 	},
+	"files": [
+		"run/**/*"
+	],
 	"dependencies": {
 		"@angular/animations": "~8.2.0",
 		"@angular/common": "~8.2.0",

@@ -3,7 +3,9 @@ import * as redis from "redis";
 
 import Server from "./server";
 
-class ServerStarter
+export { default as Model } from "./model";
+
+export class ServerStarter
 {
 	protected static SOCKET : string = process.env.SOCKET || "/opt/common/ipc.socket";
 
@@ -28,6 +30,11 @@ class ServerStarter
 		this.httpServer.on("error", (error) => this.onError(this, error));
 
 		//this.connectToBackend();
+	}
+
+	public getServer() : Server
+	{
+		return this.server;
 	}
 
 	private connectToBackend()
@@ -70,12 +77,14 @@ class ServerStarter
 		throw error;
 	}
 
-	public static start() : void
+	public static start() : ServerStarter
 	{
 		var starter : ServerStarter = new ServerStarter();
 
 		starter.start();
+
+		return starter;
 	}
 }
 
-ServerStarter.start();
+//ServerStarter.start();

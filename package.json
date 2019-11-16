@@ -6,16 +6,13 @@
 	"license": "GPL-3.0-or-later",
 	"main": "lib/server",
 	"scripts": {
-		"ng": "ng",
 		"start": "node .",
 		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon .\"",
 		"build": "webpack",
-		"build-server": "tsc --pretty -p ./tsconfig.server.json",
-		"build-client": "webpack",
-		"clean": "rm -rf run"
+		"clean": "rm -rf lib"
 	},
 	"files": [
-		"run/**/*"
+		"lib/**/*"
 	],
 	"dependencies": {
 		"@angular/animations": "~8.2.0",

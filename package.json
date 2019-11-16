@@ -4,15 +4,14 @@
 	"description": "pxserver",
 	"author": "etienne-k",
 	"license": "GPL-3.0-or-later",
-	"main": "run/start",
+	"main": "lib/server",
 	"scripts": {
 		"ng": "ng",
 		"start": "node .",
 		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon .\"",
-		"build": "webpack && yarn run copy-assets",
+		"build": "webpack",
 		"build-server": "tsc --pretty -p ./tsconfig.server.json",
 		"build-client": "webpack",
-		"copy-assets": "ts-node -T --project ./tsconfig.server.json copy-assets.ts",
 		"clean": "rm -rf run"
 	},
 	"files": [

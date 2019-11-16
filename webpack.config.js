@@ -4,6 +4,8 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const helper = require('./webpack.helper');
 const externals = require("webpack-node-externals");
 
+const outputDirectory = "lib";
+
 const serverConfig = {
 	target: "node",
 	mode: "development",
@@ -32,9 +34,9 @@ const serverConfig = {
 		}
 	},
 	output: {
-		path: path.resolve(__dirname, "run"),
-		filename: "start.js",
-		library: "start",
+		path: path.resolve(__dirname, outputDirectory),
+		filename: "server.js",
+		library: "server",
 		libraryTarget: "umd"
 	},
 	node: {
@@ -74,7 +76,7 @@ const clientConfig = {
 		extensions: [".tsx", ".ts", ".js"]
 	},
 	output: {
-		path: path.resolve(__dirname, "run", "public"),
+		path: path.resolve(__dirname, outputDirectory, "public"),
 		filename: "[name].bundle.js",
 		chunkFilename: '[name].bundle.js'
 	},

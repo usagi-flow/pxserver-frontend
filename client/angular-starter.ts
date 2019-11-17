@@ -25,7 +25,7 @@ export default class AngularStarter
 
 		try
 		{
-			return await platform.bootstrapModule(AppModule);
+			return await platform.bootstrapModule(this.module ? this.module : AppModule);
 		}
 		catch (error)
 		{

@@ -11,7 +11,7 @@ const serverConfig = {
 	mode: "development",
 	devtool: "inline-source-map",
 	entry: {
-		"server": "./server/main.ts"
+		"server": helper.getPath("./server/main.ts")
 	},
 	module: {
 		rules: [
@@ -52,9 +52,9 @@ const clientConfig = {
 	mode: "development",
 	devtool: "inline-source-map",
 	entry: {
-		"polyfills": "./client/polyfills.ts",
-		"vendor": "./client/vendor.ts",
-		"app": "./client/main.ts"
+		"polyfills": helper.getPath("./client/polyfills.ts"),
+		"vendor": helper.getPath("./client/vendor.ts"),
+		"app": helper.getPath("./client/main.ts")
 	},
 	module: {
 		rules: [
@@ -82,7 +82,7 @@ const clientConfig = {
 	},
 	plugins: [
 		new HTMLWebpackPlugin({
-			template: path.resolve(__dirname, "client", "index.html")
+			template: helper.getPath("./client/index.html")
 		})
 	],
 	optimization: {

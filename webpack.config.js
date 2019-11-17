@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const helper = require("./webpack.helper");
 const externals = require("webpack-node-externals");
@@ -64,9 +63,7 @@ const clientConfig = {
 					{
 						loader: "ts-loader",
 						options: { configFile: "tsconfig.client.json" }
-					},
-					"angular2-template-loader",
-					"angular-router-loader",
+					}
 				],
 				exclude: /node_modules/
 			},

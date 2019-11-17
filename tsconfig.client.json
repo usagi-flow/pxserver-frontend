@@ -3,10 +3,6 @@
 	"compilerOptions": {
 		"declaration": false
 	},
-	"files": [
-		"client/main.ts",
-		"client/polyfills.ts"
-	],
 	"include": [
 		"client/**/*.ts"
 	],

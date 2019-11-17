@@ -1,5 +1,5 @@
-import "./styles.scss";
+//import "./styles.scss";
 
-import AngularStarter from "./angular-starter";
+//import AngularStarter from "./angular-starter";
 
-AngularStarter.get().start();
+//AngularStarter.get().start();

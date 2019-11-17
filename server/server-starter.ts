@@ -16,9 +16,9 @@ export default class ServerStarter
 	private redisOut : redis.RedisClient;
 	private redisOutReady : boolean = false;
 
-	private constructor()
+	private constructor(root? : string)
 	{
-		this.server = Server.create();
+		this.server = Server.create(root);
 		this.port = process.env.PORT || "3000";
 
 		this.server.express.set("port", this.port);
@@ -75,9 +75,9 @@ export default class ServerStarter
 		throw error;
 	}
 
-	public static start() : ServerStarter
+	public static start(root? : string) : ServerStarter
 	{
-		var starter : ServerStarter = new ServerStarter();
+		var starter : ServerStarter = new ServerStarter(root);
 
 		starter.start();
 

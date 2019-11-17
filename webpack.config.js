@@ -1,7 +1,9 @@
 const path = require("path");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
 const helper = require("./webpack.helper");
 const externals = require("webpack-node-externals");
+
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const outputDirectory = "lib";
 
@@ -62,7 +64,10 @@ const clientConfig = {
 				loaders: [
 					{
 						loader: "ts-loader",
-						options: { configFile: "tsconfig.client.json" }
+						options: {
+							configFile: "tsconfig.client.json",
+							appendTsSuffixTo: [/\.vue$/]
+						}
 					}
 				],
 				exclude: /node_modules/
@@ -70,15 +75,22 @@ const clientConfig = {
 			{
 				test: /\.scss$/,
 				use: [
-					"style-loader",
+					"vue-style-loader",
 					"css-loader",
 					"sass-loader"
 				]
+			},
+			{
+				test: /\.vue$/,
+				loader: "vue-loader"
 			}
 		]
 	},
 	resolve: {
-		extensions: [".tsx", ".ts", ".js"]
+		extensions: [".tsx", ".ts", ".js"],
+		alias: {
+			"vue$": "vue/dist/vue.esm.js"
+		}
 	},
 	output: {
 		path: path.resolve(".", outputDirectory, "public"),
@@ -88,7 +100,8 @@ const clientConfig = {
 	plugins: [
 		new HTMLWebpackPlugin({
 			template: helper.getPath("./client/index.html")
-		})
+		}),
+		new VueLoaderPlugin()
 	],
 	optimization: {
 		splitChunks: {

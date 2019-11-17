@@ -85,4 +85,4 @@ export default class ServerStarter
 	}
 }
 
-//ServerStarter.start();
+ServerStarter.start(__dirname);

@@ -4,10 +4,10 @@
 	"description": "pxserver",
 	"author": "etienne-k",
 	"license": "GPL-3.0-or-later",
-	"main": "lib/main",
+	"main": "lib/module",
 	"scripts": {
-		"start": "node .",
-		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon .\"",
+		"start": "node lib/main",
+		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon lib/main\"",
 		"build": "webpack",
 		"clean": "rm -rf lib"
 	},

@@ -84,5 +84,3 @@ export default class ServerStarter
 		return starter;
 	}
 }
-
-ServerStarter.start(__dirname);

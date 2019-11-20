@@ -82,7 +82,10 @@ const clientConfig = {
 			},
 			{
 				test: /\.vue$/,
-				loader: "vue-loader"
+				loader: "vue-loader",
+				options: {
+					esModule: true
+				}
 			}
 		]
 	},

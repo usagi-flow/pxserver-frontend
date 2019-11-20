@@ -1,6 +1,7 @@
-<template><p>Vue component!</p></template>
+<template><p>SFC Vue component!</p></template>
 
-<script>module.exports = {
+<script lang="ts">
+module.exports = {
 	data: function() {
 		return {};
 	}

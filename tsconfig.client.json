@@ -4,10 +4,14 @@
 		"declaration": false
 	},
 	"include": [
-		"client/**/*.ts"
+		"client/**/*.ts",
+		"client/**/*.vue"
 	],
 	"exclude": [
 		"client/test.ts",
 		"client/**/*.spec.ts"
+	],
+	"files": [
+		"client/vue-shims.d.ts"
 	]
 }

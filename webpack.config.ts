@@ -60,7 +60,6 @@ export class WebpackConfiguration
 		devtool: "inline-source-map",
 		entry: {
 			"polyfills": WebpackHelper.getPath("./client/polyfills.ts"),
-			"vendor": WebpackHelper.getPath("./client/vendor.ts"),
 			"app": WebpackHelper.getPath("./client/main.ts")
 		},
 		module: {

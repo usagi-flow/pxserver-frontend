@@ -12,7 +12,7 @@ const serverConfig = {
 	mode: "development",
 	devtool: "inline-source-map",
 	entry: {
-		"server": helper.getPath("./server/main.ts")
+		"server": helper.getPath("./server/module.ts")
 	},
 	module: {
 		rules: [
@@ -36,8 +36,8 @@ const serverConfig = {
 	},
 	output: {
 		path: path.resolve(".", outputDirectory),
-		filename: "main.js",
-		library: "main",
+		filename: "module.js",
+		library: "module",
 		libraryTarget: "umd"
 	},
 	node: {

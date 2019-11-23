@@ -1,17 +1,17 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es5",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
 		"baseUrl": "./",
 		"sourceMap": true,
 		"downlevelIteration": true,
 		"experimentalDecorators": true,
-		"module": "esnext",
-		"moduleResolution": "node",
-		"target": "es2015",
 		"outDir": "lib",
-		"noImplicitAny": true,
+		"strict": true,
 		"noImplicitReturns": true,
-		"noImplicitThis": true,
 		"typeRoots": [
 			"node_modules/@types"
 		],

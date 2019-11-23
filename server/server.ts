@@ -19,7 +19,7 @@ export default class Server
 	private constructor(root : string)
 	{
 		console.log("Initializing server");
-		this.express = express();
+		this.express = express.default();
 		this.model = new Model();
 		this.root = root;
 		this.configure();
@@ -59,9 +59,4 @@ export default class Server
 	{
 		return new Server(root ? root : process.cwd());
 	}
-}
-
-class HTTPError extends Error
-{
-	public status : number;
 }

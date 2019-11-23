@@ -3,7 +3,7 @@ import * as path from "path";
 
 export default class Model
 {
-	private configuration : AppConfiguration;
+	private configuration? : AppConfiguration | null;
 
 	public constructor()
 	{
@@ -35,5 +35,5 @@ export default class Model
 
 class AppConfiguration
 {
-	public fileDescription : string;
+	public fileDescription? : string;
 }

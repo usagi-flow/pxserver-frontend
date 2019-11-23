@@ -11,9 +11,9 @@ export default class ServerStarter
 	private httpServer : http.Server;
 	private port : string;
 
-	private redisIn : redis.RedisClient;
+	private redisIn? : redis.RedisClient;
 	private redisInReady : boolean = false;
-	private redisOut : redis.RedisClient;
+	private redisOut? : redis.RedisClient;
 	private redisOutReady : boolean = false;
 
 	private constructor(root? : string)
@@ -42,6 +42,7 @@ export default class ServerStarter
 		this.redisIn = redis.createClient(ServerStarter.SOCKET);
 
 		this.redisIn.on("ready", () => {
+			if (!this.redisIn) return;
 			this.redisInReady = true;
 			console.log("Subscribing");
 			this.redisIn.subscribe("backend-to-frontend:pxserver");
@@ -52,8 +53,10 @@ export default class ServerStarter
 
 		this.redisOut = redis.createClient(ServerStarter.SOCKET);
 		this.redisOut.on("ready", () => {
+			if (!this.redisOut) return;
 			this.redisOutReady = true;
 			setTimeout(() => {
+				if (!this.redisOut) return;
 				console.log("Sending a message");
 				this.redisOut.publish("frontend-to-backend:pxserver", "Hello from Frontend!");
 			}, 3000)

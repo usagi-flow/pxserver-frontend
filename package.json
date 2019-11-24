@@ -5,6 +5,7 @@
 	"author": "etienne-k",
 	"license": "GPL-3.0-or-later",
 	"main": "lib/module",
+	"module": "lib/module",
 	"scripts": {
 		"start": "node lib/main",
 		"watch": "concurrently -n \"build,runtime\" \"webpack --watch\" \"nodemon lib/main\"",

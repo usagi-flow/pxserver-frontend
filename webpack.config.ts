@@ -2,9 +2,6 @@ import * as path from "path";
 import WebpackHelper from "./webpack.helper";
 import * as webpack from "webpack";
 
-/*const path = require("path");
-const WebpackHelper = require("./webpack.helper");*/
-
 const externals = require("webpack-node-externals");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
@@ -16,11 +13,6 @@ export class WebpackConfiguration
 	protected readonly appOutputDirectory : string = "dist";
 
 	protected application : boolean = true;
-
-	public getOutputDirectory() : string
-	{
-		return this.application ? this.appOutputDirectory : this.libOutputDirectory;
-	}
 
 	public setLibrary() : WebpackConfiguration
 	{
@@ -44,15 +36,73 @@ export class WebpackConfiguration
 		return this.application;
 	}
 
+	public getOutputDirectory() : string
+	{
+		return this.application ? this.appOutputDirectory : this.libOutputDirectory;
+	}
+
+	public getServerEntry() : webpack.Entry
+	{
+		let entry : webpack.Entry = {};
+
+		if (this.isApplication())
+			entry["Server"] = WebpackHelper.getPath("./server/main.ts");
+		else
+			entry["Server"] = WebpackHelper.getPath("./server/module.ts");
+
+		return entry;
+	}
+
+	public getClientEntry() : webpack.Entry
+	{
+		let entry : webpack.Entry = {};
+
+		entry["polyfills"] = WebpackHelper.getPath("./client/polyfills.ts");
+		entry["app"] = WebpackHelper.getPath("./client/main.ts");
+
+		return entry;
+	}
+
+	protected getServerOutput() : webpack.Output
+	{
+		let output : webpack.Output = {};
+
+		output.path = path.resolve(".", this.getOutputDirectory());
+
+		if (this.isApplication())
+		{
+			output.filename = "main.js";
+			output.library = "main";
+			output.libraryTarget = "umd";
+		}
+		else
+		{
+			output.filename = "module.js";
+			output.library = "module";
+			output.libraryTarget = "umd";
+		}
+
+		return output;
+	}
+
+	protected getClientOutput() : webpack.Output
+	{
+		let output : webpack.Output = {};
+
+		output.path = path.resolve(".", this.getOutputDirectory(), "public");
+		output.filename = "[name].bundle.js";
+		output.chunkFilename = "[name].bundle.js";
+
+		return output;
+	}
+
 	public getServerConfig() : webpack.Configuration
 	{
 		return {
 			target: "node",
 			mode: "development",
 			devtool: "inline-source-map",
-			entry: {
-				"server": WebpackHelper.getPath("./server/module.ts")
-			},
+			entry: this.getServerEntry(),
 			module: {
 				rules: [
 					{
@@ -73,12 +123,7 @@ export class WebpackConfiguration
 					"hiredis": path.resolve(__dirname, "server", "helpers", "hiredis.js")
 				}
 			},
-			output: {
-				path: path.resolve(".", this.getOutputDirectory()),
-				filename: "module.js",
-				library: "module",
-				libraryTarget: "umd"
-			},
+			output: this.getServerOutput(),
 			node: {
 				// Do not let Webpack change these globals
 				__dirname: false,
@@ -94,10 +139,7 @@ export class WebpackConfiguration
 			target: "web",
 			mode: "development",
 			devtool: "inline-source-map",
-			entry: {
-				"polyfills": WebpackHelper.getPath("./client/polyfills.ts"),
-				"app": WebpackHelper.getPath("./client/main.ts")
-			},
+			entry: this.getClientEntry(),
 			module: {
 				rules: [
 					{
@@ -136,11 +178,7 @@ export class WebpackConfiguration
 					"vue$": "vue/dist/vue.esm.js"
 				}
 			},
-			output: {
-				path: path.resolve(".", this.getOutputDirectory(), "public"),
-				filename: "[name].bundle.js",
-				chunkFilename: "[name].bundle.js"
-			},
+			output: this.getClientOutput(),
 			plugins: [
 				new HTMLWebpackPlugin({
 					template: WebpackHelper.getPath("./client/index.html")

@@ -13,7 +13,7 @@ export default class Server
 
 	public express : express.Application;
 	public model : Model;
-	
+
 	protected readonly root : string;
 
 	private constructor(root : string)
@@ -32,7 +32,7 @@ export default class Server
 			console.log("Setting up view engine for directory: " + path.join(this.root, "views"));
 			this.express.set("views", path.join(this.root, "views"));
 			this.express.set("view engine", "hbs");
-			
+
 			console.log("Setting up routes");
 			this.express.use("/", new IndexRoute(this.model).getRouter());
 			this.express.use(express.static(path.join(this.root, "public")));
@@ -51,6 +51,8 @@ export default class Server
 
 	private fallbackHandler(request : express.Request, response : express.Response, next : express.NextFunction) : void
 	{
+		console.log("[HTTP 404] " + request.url);
+
 		response.statusCode = 404;
 		response.send("<!DOCTYPE html><html><body>404 - Not found</body></html>");
 	}

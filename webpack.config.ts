@@ -6,6 +6,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 export class FrontendConfiguration extends WebpackConfiguration
 {
+	public constructor()
+	{
+		super();
+		this.extendSearchPath(__dirname);
+	}
+
 	public getClientConfig() : webpack.Configuration
 	{
 		return {

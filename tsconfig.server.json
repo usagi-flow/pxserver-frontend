@@ -1,5 +1,5 @@
 {
-	"extends": "./node_modules/pxserver-core/tsconfig.server.json",
+	"extends": "../pxserver-core/tsconfig.server.json",
 	"include": [
 		"server/**/*.ts"
 	]

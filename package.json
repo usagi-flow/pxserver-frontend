@@ -21,7 +21,7 @@
 		"@types/redis": "^2.8.13",
 		"express": "^4.17.1",
 		"pxserver-core": "link:../pxserver-core",
-		"redis": "^2.8.0",
+		"redis": "^3.1.1",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^6.5.3",
 		"socket.io-client": "^2.2.0",
